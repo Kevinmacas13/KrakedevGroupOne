@@ -112,7 +112,7 @@
         </div>
     </div>
 
-    <!-- Sección 3: Carrito de compras -->
+   <!-- Sección 3: Carrito de compras -->
     <div id="seccion3" class="seccion" style="display:none;">
         <div class="contenido-seccion">
             <h2>Carrito de Compras (Reto Grupal)</h2>
@@ -120,9 +120,24 @@
             <div id="productosDisponibles">
                 <!-- Productos para añadir -->
             </div>
-
+   
             <h3>Resumen del Carrito</h3>
-            <table id="tablaCarrito">
+            <div class="contenedorInput">
+            <h5>Poner nombre de producto</h5>
+            <input type="text" value="" id="buscadorCarrito"  />
+            </div>
+
+              <div class="contenedorInput">
+            <h5>Poner cantidad</h5>
+            <input type="text" value="" id="cantidadCarrito" disabled/>
+            </div>
+             <input type="button" value="Buscar" onclick="carritoBoton()" />
+              <input type="button" value="Eliminar Carrito" onclick="eliminarCarritoBoton()" />
+              <input type="text" value="" id="cantidadCarrito" disabled/> 
+               <input type="button" value="Agregar al Carrito" onclick="probarAgregarCarrito()" />
+            
+            
+             <table id="tablaCarrito">
                 <thead>
                     <tr>
                         <th>Producto</th>
