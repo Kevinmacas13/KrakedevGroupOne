@@ -434,12 +434,131 @@ function eliminarDelCarrito(index) {
 }
 
 // Función: guardar datos cliente
+
+// Función: guardar datos cliente
 function guardarDatosCliente() {
   /*
       - Obtener y validar campos del cliente (nombre, email, teléfono, dirección)
       - Guardar datos para la compra
     */
+
+  let valorNombre=recuperarTexto("nombreCliente");
+  let valorEmail=recuperarTexto("emailCliente");
+  let valorTelefono=recuperarTexto("telefonoCliente");
+  let valorDireccion=recuperarTexto("direccionCliente");
+
+if((validarCajaTextoNombre(valorNombre)) && (validarCajaTextoEmail(valorEmail)) && (validarCajaTextoTelefono(valorTelefono)) && (validarCajaTextoDireccion(valorDireccion))){
+  let nuevoCliente={};
+  nuevoCliente.nombre=valorNombre;
+  nuevoCliente.email=valorEmail;
+  nuevoCliente.telefono=valorTelefono;
+  nuevoCliente.direccion=valorDireccion;
+  ventas.push(nuevoCliente);
+  alert("cliente registrado exitoso  ");
+}else{
 }
+
+    
+
+
+}
+
+buscarcliente = function(nombrecliente) {
+  let elementoCliente;
+  let clienteEncontrado = null;
+  for (let i = 0; i < (ventas.cliente).length; i++) {
+    elementoCliente = ventas.cliente[i];
+      if (elementoCliente.nombre == nombrecliente) {
+        clienteEncontrado = elementoCliente;
+        alert("cliente enonctrado");
+          break;
+      }
+  }
+  return clienteEncontrado;
+};
+
+
+//validaciones 
+
+//funcion validar  caja texto de nombre 
+validarCajaTextoNombre = function(nombre) {
+  let longitudNombre = nombre.length;
+  let error = false;
+  if ((nombre == "" || nombre ==null)) {
+      mostrarTexto("errorNombreCliente", "Campo obligatorio*");
+      error = true;
+  } else if (esCadenaMayuscula(nombre) == false) {
+      mostrarTexto("errorNombreCliente", "Se permite solo mayusculas");
+      error = true;
+  } else {
+      mostrarTexto("errorNombreCliente", "");
+  }
+  return !error;
+};
+
+//funcion validar  caja email 
+validarCajaTextoEmail = function(nombre) {
+  let error = false;
+  if ((nombre == "" || nombre ==null)) {
+      mostrarTexto("errorEmailCliente", "Campo obligatorio*");
+      error = true;
+  } else {
+      mostrarTexto("errorEmailCliente", "");
+  }
+  return !error;
+};
+
+//funcion validar 9 caracteres digitos CEULAR
+validarCajaTextoTelefono = function(telefono) {
+  let longitudtelefono = telefono.length;
+  let error = false;
+
+  if ((telefono == "")) {
+      mostrarTexto("errorTelefonoCliente", "Campo obligatorio*");
+      error = true;
+  } else if ((longitudtelefono != 9)) {
+      mostrarTexto("errorTelefonoCliente", "celular debe tener 9 digitos");
+      error = true;
+  } else if (isNaN(telefono)) {
+      mostrarTexto("errorTelefonoCliente", "Ingresar solo digitos");
+      error = true;
+  } else {
+      mostrarTexto("errorTelefonoCliente", "");
+  }
+
+  return !error;
+};
+
+
+//funcion validar  caja direccion 
+validarCajaTextoDireccion = function(nombre) {
+  let error = false;
+  if ((nombre == "" || nombre ==null)) {
+      mostrarTexto("errorDireccionCliente", "Campo obligatorio*");
+      error = true;
+  } else {
+      mostrarTexto("errorDireccionCliente", "");
+  }
+  return !error;
+};
+
+
+//funcion es mayuscula
+esCadenaMayuscula = function(cadena) {
+  let codigoLetra;
+  let esMayuscula = true;
+  for (let i = 0; i < cadena.length; i++) {
+      codigoLetra = cadena.charCodeAt(i);
+      if ((codigoLetra < 65) || (codigoLetra > 90)) {
+          esMayuscula = false;
+          break;
+      }
+  }
+  return esMayuscula;
+};
+
+
+
 
 // Función: finalizar compra
 function finalizarCompra() {
