@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Prueba Tienda - Validaciones con errores</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="utilitarios.js"></script>
+    <script src="scripts.js"></script>
+</head>
+
+<body onload="mostrarSeccion('seccion1'); siempreTabla();">
+
+    <!-- Logos fijos a los lados -->
+    <img src="./imagenes/logo.png" alt="Logo Izquierdo" id="logo-izquierdo" />
+    <img src="./imagenes/logo.png" alt="Logo Derecho" id="logo-derecho" />
+
+    <nav class="menu">
+        <button onclick="mostrarSeccion('seccion1')">Productos</button>
+        <button onclick="mostrarSeccion('seccion2')">Categorías</button>
+        <button onclick="mostrarSeccion('seccion3')">Carrito</button>
+        <button onclick="mostrarSeccion('seccion4')">Cliente</button>
+        <button onclick="mostrarSeccion('seccion5')">Resumen Ventas</button>
+    </nav>
+
+    <!-- Sección 1: Gestión de productos -->
+    <div id="seccion1" class="seccion" style="display:none;">
+        <div class="contenido-seccion">
+            <h2>Gestión de Productos (Reto Individual)</h2>
+
+            <div class="campo">
+                <label for="nombreProducto">Nombre:</label>
+                <input type="text" id="txtNombre">
+                <div class="error" id="lblErrorNombre"></div>
+                <label for="descripciónProducto">Descripción:</label>
+                <input type="text" id="txtDescripción">
+                <div class="error" id="lblErrorDescripción"></div>
+                <label for="categoríaProducto">Categoría:</label>
+                <input type="text" id="txtCategoría">
+                <div class="error" id="lblErrorCategoría"></div>
+                <label for="precioProducto">Precio :</label>
+                <input type="text" id="txtPrecio">
+                <div class="error" id="lblErrorPrecio"></div>
+                <label for="stockProducto">Stock:</label>
+                <input type="text" id="txtStock">
+                <div class="error" id="lblErrorStock"></div>
+
+            </div>
+            <input type="button" value="Agregar Producto" onclick="agregarProducto();" />
+
+            <h3>Productos Registrados</h3>
+            <table id="tablaProductos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Productos aparecerán aquí -->
+                </tbody>
+            </table>
+            <div class="eliminar">
+                <label for="eliminarProducto">Eliminar Producto</label>
+                <input type="text" id="eliminarProducto" placeholder="Ingrese el nombre del producto a eliminar" />
+                <div class="error" id="lblErrorElim"></div>
+                <input type="button" value="Eliminar" onclick="ejecutarEliminarProducto();" />
+            </div>
+            <div id="estadisticasProductos">
+                <p>Total productos: <span id="totalProductos">0</span></p>
+                <p>Stock total: <span id="stockTotal">0</span></p>
+                <p>Valor inventario: $<span id="valorInventario">0.00</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 2: Gestión de categorías -->
+    <div id="seccion2" class="seccion" style="display:none;">
+        <div class="contenido-seccion">
+            <h2>Gestión de Categorías (Reto Grupal)</h2>
+
+            <div class="campo">
+                <label for="nombreCategoria">Nombre Categoría:</label>
+                <input type="text" id="nombreCategoria" placeholder="Ej: Ropa" />
+                <div class="error" id="errorNombreCategoria">......</div>
+            </div>
+
+            <div class="campo">
+                <label for="descripcionCategoria">Descripción Corta:</label>
+                <input type="text" id="descripcionCategoria" maxlength="50" placeholder="Opcional" />
+                <div class="error" id="errorDescripcionCategoria">.......</div>
+            </div>
+
+            <div class="campo">
+                <button type="button" onclick="agregarCategoria()">Agregar Categoría</button>
+            </div>
+
+            <h3>Categorías Registradas</h3>
+            <ul id="listaCategorias">
+                <!-- Categorías aparecerán aquí -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sección 3: Carrito de compras -->
+    <div id="seccion3" class="seccion" style="display:none;">
+        <div class="contenido-seccion">
+            <h2>Carrito de Compras (Reto Grupal)</h2>
+            <p>Añadir productos al carrito desde la lista de productos disponibles.</p>
+            <div id="productosDisponibles">
+                <!-- Productos para añadir -->
+            </div>
+
+            <h3>Resumen del Carrito</h3>
+            <table id="tablaCarrito">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Carrito aparecerá aquí -->
+                </tbody>
+            </table>
+            <p>Total: $<span id="totalCarrito">0.00</span></p>
+        </div>
+    </div>
+
+    <!-- Sección 4: Formulario Cliente -->
+    <div id="seccion4" class="seccion" style="display:none;">
+        <div class="contenido-seccion">
+            <h2>Datos del Cliente (Reto Grupal)</h2>
+
+            <div class="campo">
+                <label for="nombreCliente">Nombre Completo:</label>
+                <input type="text" id="nombreCliente" placeholder="Ej: Juan Pérez" />
+                <div class="error" id="errorNombreCliente"></div>
+            </div>
+
+            <div class="campo">
+                <label for="emailCliente">Correo Electrónico:</label>
+                <input type="email" id="emailCliente" placeholder="Ej: juan@example.com" />
+                <div class="error" id="errorEmailCliente"></div>
+            </div>
+
+            <div class="campo">
+                <label for="telefonoCliente">Teléfono:</label>
+                <input type="tel" id="telefonoCliente" placeholder="Ej: 0991234567" />
+                <div class="error" id="errorTelefonoCliente"></div>
+            </div>
+
+            <div class="campo">
+                <label for="direccionCliente">Dirección:</label>
+                <textarea id="direccionCliente" placeholder="Ej: Calle Falsa 123"></textarea>
+                <div class="error" id="errorDireccionCliente"></div>
+            </div>
+
+            <div class="campo">
+                <button type="button" onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 5: Resumen de ventas -->
+    <div id="seccion5" class="seccion" style="display:none;">
+        <div class="contenido-seccion">
+            <h2>Resumen de Ventas (Reto Grupal)</h2>
+
+            <table id="tablaVentas">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ventas aparecerán aquí -->
+                </tbody>
+            </table>
+            <div id="estadisticasVentas">
+                <p>Total Ventas: $<span id="totalVentas">0.00</span></p>
+                <p>Producto más vendido: <span id="productoMasVendido">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(div => {
+                div.style.display = div.id === id ? 'block' : 'none';
+            });
+        }
+    </script>
+
+</body>
+
+</html>

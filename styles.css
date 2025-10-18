@@ -1,0 +1,120 @@
+/* Logos fijos a los lados */
+#logo-izquierdo,
+#logo-derecho {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: auto;
+  z-index: 1000;
+}
+
+#logo-izquierdo {
+  left: 10px;
+}
+
+#logo-derecho {
+  right: 10px;
+}
+
+/* Evitar que el contenido quede debajo de los logos */
+body {
+  padding-left: 80px;
+  padding-right: 80px;
+  font-family: sans-serif;
+  background: rgb(167, 197, 197);
+  color: black;
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Menú */
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.menu button {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* Contenedores de sección */
+.seccion {
+  max-width: 900px;
+  margin: 0 auto 30px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+
+/* Títulos */
+h2 {
+  margin-bottom: 10px;
+}
+
+/* Campos */
+.campo {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.eliminar {
+  margin-top: 20px;
+}
+
+input,
+textarea,
+button {
+  font-size: 14px;
+  padding: 6px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* Botones */
+button {
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+button:hover {
+  background: #666;
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background: #f0f0f0;
+}
+
+/* Mensajes de error */
+.error {
+  margin: 10px 0;
+  color: red;
+  font-size: 15px;
+  font-style: italic;
+}
