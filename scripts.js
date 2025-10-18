@@ -371,16 +371,45 @@ function finalizarCompra() {
 
 // Función: mostrar resumen de ventas
 function mostrarVentas() {
-  /*
-      - Mostrar tabla con ventas registradas
-      - Calcular y mostrar totales globales y producto más vendido
-    */
+  let cmpTabla = document.getElementById('tablaVentas');
+  cmpTabla.innerHTML = '';
+  let contenidoTabla = '<table><tr>' +
+    '<th>CLIENTE</th>' +
+    '<th>TOTAL</th>' +
+    '</tr>';
+
+  let elementoVenta;
+  for (let i = 0; i < ventas.length; i++) {
+    elementoVenta = ventas[i];
+    contenidoTabla += '<tr><td>' + elementoVenta.cliente.nombre + '</td>'
+      + '<td>' + elementoVenta.total + '</td>'
+      + '</tr>';
+  }
+  contenidoTabla += '</table>';
+  cmpTabla.innerHTML = contenidoTabla;
+
+  let cmpTotalVentas = document.getElementById('totalVentas');
+  let totalVentas = 0;
+  for (let i = 0; i < ventas.length; i++) {
+    elementoVenta = ventas[i];
+    totalVentas += elementoVenta.total;
+  }
+  cmpTotalVentas.innerHTML = totalVentas.toFixed(2);
+
+  let cmpProductoMasVendido = document.getElementById('productoMasVendido');
+  cmpProductoMasVendido.innerHTML = calcularProductoMasVendido();
 }
 
 // Función: calcular producto más vendido
 function calcularProductoMasVendido() {
-  /*
-      - Contar cantidades vendidas de cada producto en todas las ventas
-      - Retornar nombre de producto con mayor cantidad vendida
-    */
+  let productoMasVendido = carrito[0];
+  let elementoProducto;
+  for (let i = 1; i < carrito.length; i++) {
+    elementoProducto = carrito[i];
+    if (elementoProducto.cantidad > productoMasVendido.cantidad) {
+      productoMasVendido = elementoProducto;
+    }
+  }
+  return productoMasVendido.nombre;
 }
+
