@@ -273,39 +273,120 @@ function actualizarEstadisticasProductos() {
 
 // Función: agregar categoría
 function agregarCategoria() {
-  cmpCategoríaNombre = recuperarTexto('txtCategoriaNombre');
-  cmpCategoríaDescripción = recuperarTexto('txtCategoriaDescripción');
-  if(cmpCategoríaNombre==null || cmpCategoríaNombre.length==0){
-    mostrarTexto('lblErrorCatNombre', 'El nombre de la categoría no puede quedar vacío.');
-    return;
-  }else{
-    mostrarTexto('lblErrorCatNombre', '');
+  let valueCategoria = recuperarTexto("nombreCategoria");
+  let valueDescripción = recuperarTexto("descripcionCategoria");
+  let error = ""
+  let esCorrecto = true;
+
+  if (valueCategoria == null || valueCategoria.length == 0) {
+    error += "El nombre no puede quedar vacio."
+    mostrarTexto("errorNombreCategoria", error);
+    esCorrecto = false;
+  } else {
+    mostrarTexto("errorNombreCategoria", " ");
   }
-  
-  /*
-      - Obtener datos desde inputs
-      - Validar campos obligatorios y evitar duplicados
-      - Agregar categoría a la lista
-      - Limpiar campos y actualizar lista de categorías
-    */
+  if (esMayuscula(valueCategoria.charAt(0))) {
+    mostrarTexto("errorNombreCategoria", " ");
+    for (let i = 1; i < valueCategoria.length; i++) {
+      let cher = valueCategoria.charAt(i);
+      if (!esMinuscula(cher)) {
+        error += '\nEl nombre debe iniciar con mayúscula y el resto en minúscula.'
+        mostrarTexto("errorNombreCodigo", error);
+        esCorrecto = false;
+        break;
+      } else {
+        mostrarTexto("errorNombreCodigo", " ");
+      }
+    }
+  } else {
+    error += '\nEl nombre debe iniciar con mayúscula y el resto en minúscula.'
+    mostrarTexto('errorNombreCodigo', error)
+    esCorrecto = false;
+  }
+
+  if (valueDescripción == null || valueDescripción.length == 0) {
+    mostrarTexto('errorDescripcionCategoria', 'La categoría es obligatoria y debe tener formato válido.')
+    esCorrecto = false;
+  } else {
+    mostrarTexto('errorDescripcionCategoria', '')
+    for (let i = 0; i < valueDescripción.length; i++) {
+      let char = valueDescripción.charAt(i);
+      if (esDigito(char)) {
+        mostrarTexto('errorDescripcionCategoria', 'La categoría es obligatoria y debe tener formato válido.')
+        esCorrecto = false;
+        break;
+      } else {
+        mostrarTexto('errorDescripcionCategoria', '')
+      }
+    }
+  }
+  if(esCorrecto==true){
+    for(let i=0;i<categorias.length;i++){
+      if(categorias[i].nombre==valueCategoria){
+        categorias[i].descripcion==valueDescripción
+        break;
+      }else{
+        let nuevoProducto={
+          nombre: valueCategoria,
+          descripcion: valueDescripción,
+      }
+      categorias.push(nuevoProducto);
+      break;
+    }
+  }
+
 }
+limpiarCat();
+mostrarCategorias(categorias);
+}
+
+limpiarCat = function () {
+  mostrarTextoEnCaja('nombreCategoria', '');
+  mostrarTextoEnCaja('descripcionCategoria', '');
+
+  mostrarTexto('errorNombreCategoria', '');
+  mostrarTexto('errorDescripcionCategoria', '');
+}
+ 
 
 // Función: mostrar categorías
 function mostrarCategorias() {
-  /*
-      - Limpiar lista actual
-      - Recorrer categorías y mostrar en lista HTML
-      - Agregar botón para eliminar categoría
-    */
+  let cmpTabla = document.getElementById('listaCategorias');
+  cmpTabla.innerHTML = '';
+  let contenidoTabla = '<table><tr>' +
+    '<th>NOMBRE</th>' +
+    '<th>DESCRIPCIÓN</th>' +
+    '</tr>';
+  let elementoCategorias;
+  for (let i = 0; i < categorias.length; i++) {
+    elementoCategorias = categorias[i];
+    contenidoTabla += '<tr><td>' + elementoCategorias.nombre + '</td>'+
+       '<td>' + elementoCategorias.descripcion + '</td>'+
+       '</tr>';
+  }
+  contenidoTabla += '</table>';
+  cmpTabla.innerHTML = contenidoTabla;
 }
 
 // Función: eliminar categoría
-function eliminarCategoria(index) {
-  /*
-      - Confirmar con el usuario
-      - Eliminar categoría de la lista
-      - Actualizar lista en pantalla
-    */
+function eliminarCategoria() {
+  let valueNombreP=recuperarTexto("descripcionCategoriaElim");
+  if(valueNombreP==null||valueNombreP==0){
+    mostrarTexto("errorDescripcionCategoriaElim","Ingrese un producto valido");
+    return;
+  }else{
+    mostrarTexto("errorDescripcionCategoriaElim"," ");
+    for(let i=0;i<categorias.length;i++){
+      if(categorias[i].nombre==valueNombreP){
+        mostrarTexto("errorDescripcionCategoriaElim"," ");
+        categorias.splice(i,1);
+        break;
+      }else{
+        mostrarTexto("errorDescripcionCategoriaElim","Producto no encontrado");
+      }
+    }
+    mostrarCategorias(categorias);
+  }
 }
 
 // Función: mostrar productos disponibles para añadir al carrito
@@ -317,14 +398,17 @@ function mostrarProductosDisponibles() {
 
 // Función: añadir producto al carrito
 function agregarAlCarrito(nombreProducto) {
-  /*
-      - Validar cantidad y stock disponible
-      - Añadir producto o aumentar cantidad en carrito
-      - Actualizar resumen y total del carrito
-    */
+  cmpCategoríaNombre = recuperarTexto('txtCategoriaNombre');
+  cmpCategoríaDescripción = recuperarTexto('txtCategoriaDescripción');
+  if(cmpCategoríaNombre==null || cmpCategoríaNombre.length==0){
+    mostrarTexto('lblErrorCatNombre', 'El nombre de la categoría no puede quedar vacío.');
+    return;
+  }else{
+    mostrarTexto('lblErrorCatNombre', '');
+  }
 }
 
-// Función: mostrar resumen del carrito
+// Función: mostrar resumen del carrito  
 function mostrarCarrito() {
   /*
       - Mostrar tabla con productos en carrito, cantidades y subtotal
