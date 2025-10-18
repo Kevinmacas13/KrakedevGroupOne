@@ -84,19 +84,26 @@
 
             <div class="campo">
                 <label for="nombreCategoria">Nombre Categoría:</label>
-                <input type="text" id="nombreCategoria" placeholder="Ej: Ropa" />
+                <input type="text" id="nombreCategoria"  />
                 <div class="error" id="errorNombreCategoria">......</div>
             </div>
 
             <div class="campo">
                 <label for="descripcionCategoria">Descripción Corta:</label>
-                <input type="text" id="descripcionCategoria" maxlength="50" placeholder="Opcional" />
+                <input type="text" id="descripcionCategoria" maxlength="50"  />
                 <div class="error" id="errorDescripcionCategoria">.......</div>
             </div>
 
             <div class="campo">
                 <button type="button" onclick="agregarCategoria()">Agregar Categoría</button>
             </div>
+            <div class="campo">
+                <label for="descripcionCategoria">Eliminar Categoria</label>
+                <input type="text" id="descripcionCategoriaElim" maxlength="50" />
+                <div class="error" id="errorDescripcionCategoriaElim">.......</div>
+                <div class="campo">
+                    <button type="button" onclick="eliminarCategoria()">Eliminar Categoría</button>
+                </div>
 
             <h3>Categorías Registradas</h3>
             <ul id="listaCategorias">
